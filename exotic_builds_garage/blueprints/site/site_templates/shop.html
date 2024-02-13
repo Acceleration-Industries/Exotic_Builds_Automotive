@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link rel="stylesheet" href="../static/main.css">
+    <title>Exotic Builds Automotive</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/lambo1.png">
+    <link href="https://fonts.cdnfonts.com/css/da-mad-rave" rel="stylesheet">
+    <style>
+        .shop-header {
+            background-image: url("/static/images/porsche.jpg");
+            background-size: inherit;
+            width: 700px;
+            background-repeat: no-repeat;
+            background-position: center;
+            float: left;
+            height: 841px;
+            color: white;
+            font-size: 18px;
+            text-align: left;
+            display: flex;
+            align-items: column !important;
+            padding-top: 20px;
+            justify-content: flex-start;
+            flex-direction: column;
+            border: black;
+            border-width: 10px;
+            padding-right: none;
+        }
+
+        .card-body {
+            background-color: black;
+            color: black;
+            text-shadow: 1px 1px 1px gold;
+        }
+
+        .sign_in_button_update {
+            text-align: left;
+        }
+
+        .center-text {
+            text-align: center;
+            color: black !important;
+            font-size: 14px;
+        }
+
+        .card {
+            background-color: black;
+            border: 2px solid gold;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gold;
+            margin-bottom: 20px;
+            color: gold;
+            font-size: 12px !important;
+            margin-top: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 2px gold, 0 0 2px gold, 0 0 2px gold;
+            color: black;
+        }
+
+        .card-text {
+            font-size: 16px !important;
+            margin-bottom: 20px;
+            text-shadow: 0 0 2px gold, 0 0 2px gold, 0 0 2px gold;
+            color: black;
+        }
+
+        .list-group-item {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: gold;
+        }
+
+        .err-msg {
+            background-color: black;
+            color: gold;
+            padding: 10px;
+            border-radius: 5px;
+            text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black;
+        }
+
+        .shop-stats {
+            background-color: black;
+            color: gold;
+            font-size: 12px !important;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 0px;
+        }
+
+        .add-product-column {
+            width: 40%;
+            margin-left: 30%;
+            padding: 20px;
+            background-color: gold;
+            color: black;
+            text-align: center;
+            box-shadow: 0 0 10px gold;
+            font-size: 14px !important;
+        }
+
+        .add-product-button {
+            margin-top: 20px;
+            font-size: 14px;
+            box-shadow: 0 0 5px gold;
+            font-size: 12px;
+            width: 100%;
+        }
+
+        .card-footer .btn-outline-primary:hover {
+            background-color: gold !important;
+            color: black !important;
+            box-shadow: 0 0 20px gold !important;
+        }
+
+        .card-footer .btn-outline-primary {
+            color: gold !important;
+            border: 1px solid gold !important;
+            box-shadow: 0 0 10px gold !important;
+            background-color: black;
+        }
+
+        .card-footer .btn-outline-danger:hover {
+            background-color: gold !important;
+            color: black !important;
+            box-shadow: 0 0 20px gold !important;
+        }
+
+        .card-footer .btn-outline-danger {
+            color: gold !important;
+            border: 1px solid gold !important;
+            box-shadow: 0 0 10px gold !important;
+            background-color: black;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .porsche {
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hea_alig {
+            display: flex;
+            background-position: center;
+            background-size: 500px;
+            margin-top: -10%;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: column;
+            color: black !important;
+            text-shadow:
+                0 0 12px black,
+                0 0 18px gold,
+                0 0 15px gold,
+                0 0 17px gold,
+                0 0 20px gold,
+                0 0 13px gold,
+                0 0 14px gold,
+                0 0 16px gold,
+                0 0 19px gold;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: gold;
+            -webkit-text-stroke-width: .3px;
+            padding: 8%;
+            padding-inline: 20%;
+            margin-bottom: 10%;
+            padding-top: 10%;
+
+            text-size-adjust: 50px;
+        }
+
+        .builds {
+            color: black;
+            text-shadow: 0 0 4px gold, 0 0 6px gold, 0 0 8px gold, 0 0 10px gold,
+            0 0 12px gold, 0 0 17px gold, 0 0 20px gold;
+            -webkit-text-stroke-width: 1.5px;
+            -webkit-text-stroke-color: black;
+            background-color: black;
+        }
+
+        .builds:hover {
+            color: white;
+            
+        }
+
+        .hea_align-h5 {
+            display: flex;
+            align-items: flex-start;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pwrapps">
+        {% extends 'base.html' %}
+        {% block content %}
+        <div class="container-fluid">
+            {% if not current_user.is_authenticated %}
+            <div class="hea_alig">
+                <div class="row shop-header p-5">
+                    <div class="porsche">
+                        <div class="hea_alig">
+                            <br>
+                            <br>
+                        </div>
+                        <div class="signnn">
+                            <a href="/signin" class="builds">Sign In</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 text-align center-text">
+                    <h5 class="center-text"></h5>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            {% for product in shop %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ product.image }}" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Price: {{ product.price }}</li>
+                            <li class="list-group-item">Quantity: {{ product.quantity }}</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ url_for('site.create') }}" class="btn btn-outline-danger">Add Product</a>
+                        <a href="{{ url_for('site.update', id=product.prod_id) }}"
+                            class="btn btn-outline-primary">Update Item</a>
+                        <a href="{{ url_for('site.delete', id=product.prod_id) }}"
+                            class="btn btn-outline-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row bg-dark p-3 shop-stats">
+            <div class="col d-flex justify-content-center"><br></div>
+            <div class="col d-flex justify-content-center"><br></div>
+            <div class="col d-flex justify-content-center"><br></div>
+            <!-- Clothing
+                Contact Us
+                Cars for Sale -->
+        </div>
+        {% endif %}
+    </div>
+    {% endblock content %}
+    </div>
+</body>
+
+</html>

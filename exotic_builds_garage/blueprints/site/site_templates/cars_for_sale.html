@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>Cars for Sale</h1>
+    <div class="row">
+        {% for car in cars %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ car.image }}" class="card-img-top" alt="{{ car.make }} {{ car.model }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ car.make }} {{ car.model }}</h5>
+                    <p class="card-text">Price: ${{ car.price }}</p>
+                    <p class="card-text">Year: {{ car.year }}</p>
+                    <p class="card-text">Mileage: {{ car.mileage }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{{ url_for('view_car_details', car_id=car.id) }}"
+                                class="btn btn-sm btn-outline-secondary">View Details</a>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../static/main.css">
+    <title>Exotic Builds Automotive</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/lambo1.png">
+    <link href="https://fonts.cdnfonts.com/css/da-mad-rave" rel="stylesheet">
+    <style>
+
+        body {
+            font-family: 'Da Mad Rave', sans-serif;
+        }
+
+        .trip {
+            float: right;
+            width:auto;
+            border-width: 30px;
+            border-color: gold;
+            margin-top: 15px;
+            box-shadow: gold 10px 20px 40px;
+            
+        }
+
+        body {
+            font-family: 'Da Mad Rave', sans-serif;
+        }
+
+        .page-wrap {
+    width: 100%;
+    background-size: cover;
+    background-color: black;
+    border-radius: 5px;
+    background-position: right;
+}
+.nav-link:hover {
+    color: white !important;
+}
+    </style>
+</head>
+
+<body>
+    <div class="page-wrap">
+        {% include 'navbar.html' %}
+        <div class="trip">
+            <img src="\static\images\Motorious.png" alt="Motorious" class="">
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show {% if category == 'success' %}success-message{% endif %}"
+            role="alert">
+            <strong>{{ category.title() }}</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endwith %}
+        {% block content %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    </div>
+    </div>
+    {% endblock content %}
+</body>
+
+</html>
