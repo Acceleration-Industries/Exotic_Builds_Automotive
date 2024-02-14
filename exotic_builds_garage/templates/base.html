@@ -24,31 +24,6 @@
             font-family: 'Da Mad Rave', sans-serif;
         }
 
-        /* .trip {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            border-color: gold;
-            box-shadow: gold 0px 7px 29px 0px;
-            float: right
-        }
-
-        body {
-            font-family: 'Da Mad Rave', sans-serif;
-        }
-
-        .page-wrap {
-    width: 100%;
-    background-size: cover;
-    background-color: black;
-    border-radius: 5px;
-    background-position: right;
-    max-width: 1920px;
-    height: 100%;
-}
-.nav-link:hover {
-    color: white !important;
-} */
     </style>
 </head>
 
@@ -56,7 +31,6 @@
     <div class="page-wrap">
         {% include 'navbar.html' %}
         <div class="trip">
-            <!-- <img src="\static\images\Motorious.jpg" alt="Motorious" class=""> -->
         </div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% for category, message in messages %}
