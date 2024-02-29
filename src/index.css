@@ -15,3 +15,10 @@ font-family: 'Drius', sans-serif;
   box-shadow: inset #00be00;
   border-width: 20%;
 }
+body {
+  background-image: url('src/assets/images/cool_green.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}

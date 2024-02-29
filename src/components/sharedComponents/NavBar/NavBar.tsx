@@ -1,4 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import TuneIcon from '@mui/icons-material/Tune';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { signOut, getAuth } from 'firebase/auth';
+import { theme } from '../../../Theme/themes';
 import {
     Button,
     Drawer,
@@ -10,30 +18,17 @@ import {
     IconButton,
     Typography,
     Divider,
-    CssBaseline,
-    Box
-}
- from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import CottageIcon from '@mui/icons-material/Cottage';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import { theme } from '../../../Theme/themes';
-const drawerWidth = 200;
+    Box,
+    ListItemIcon,
+} from '@mui/material';
+const drawerWidth = 240;
 const navStyles = {
     appBar: {
-        backgroundColor: '#00be00',
-        backgroundImage: `url('/assets/images/texture_honeycomb_black.jpg'), linear-gradient(#00be00, #00be00)`,
-        backgroundBlendMode: 'overlay',
-        color: 'black',
+        backgroundColor: "#4CAF50",
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        '& .MuiToolbar-root': {
-            backgroundColor: 'transparent',
-        },
     },
     appBarShift: {
         width: `calc(100% - ${drawerWidth}px)`,
@@ -52,51 +47,56 @@ const navStyles = {
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
-        '& .MuiDrawer-paper': {
-            backgroundColor: '#242625',
-            color: '#00be00',
-            borderColor: '#00be00',
-        },
     },
     drawerPaper: {
         width: drawerWidth,
     },
     drawerHeader: {
         display: 'flex',
-        width: drawerWidth,
         alignItems: 'center',
-        padding: theme.spacing(1),
+        padding: theme.spacing(0, 1),
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
-        backgroundColor: '#00be00',
-        color: 'black',
     },
-    toolbar: {
-        display: 'flex',
-    },
-    toolbarButton: {
-        marginLeft: 'auto',
-        color: theme.palette.primary.contrastText,
-    },
-    signInStack: {
-        position: 'absolute',
-        top: '20%',
-        right: '50px',
-    }
-}
+};
 export const NavBar = () => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
+    const auth = getAuth();
+    const myAuth = localStorage.getItem('auth');
     const handleDrawerOpen = () => setOpen(true);
     const handleDrawerClose = () => setOpen(false);
     const navLinks = [
-        { text: 'Home', icon: <CottageIcon />, onClick: () => navigate('/') },
-        { text: 'Shop', icon: <ShoppingBagIcon />, onClick: () => navigate('/shop') },
-        { text: 'Cart', icon: <ShoppingCartIcon />, onClick: () => navigate('/cart') },
+        {
+            text: 'Home',
+            icon: <DirectionsCarIcon />,
+            onClick: () => navigate('/'),
+        },
+        {
+            text: myAuth === 'true' ? 'Shop' : 'Sign In',
+            icon: myAuth === 'true' ? <TuneIcon /> : <ExitToAppIcon />,
+            onClick: () => navigate(myAuth === 'true' ? '/shop' : '/auth'),
+        },
+        {
+            text: myAuth === 'true' ? 'Cart' : '',
+            icon: myAuth === 'true' ? <ShoppingCartIcon /> : null,
+            onClick: myAuth === 'true' ? () => navigate('/cart') : () => { },
+        },
     ];
+    let buttonText = myAuth === 'true' ? 'Sign Out' : 'Sign In';
+    const signInButton = async () => {
+        if (myAuth === 'false') {
+            navigate('/auth');
+        } else {
+            await signOut(auth);
+            localStorage.setItem('auth', 'false');
+            localStorage.setItem('user', "");
+            localStorage.setItem('uuid', "");
+            navigate('/');
+        }
+    };
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
+        <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed" sx={open ? navStyles.appBarShift : navStyles.appBar}>
                 <Toolbar>
                     <IconButton
@@ -106,37 +106,42 @@ export const NavBar = () => {
                         edge="start"
                         sx={open ? navStyles.hide : navStyles.menuButton}
                     >
-                        <ShoppingBasketIcon />
+                        <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, color: 'black' }}>
+                    <Typography variant="subtitle1" noWrap component="div" sx={{ flexGrow: 1 }}>
                         EXOTIC BUILDS AUTOMOTIVE
                     </Typography>
-                    <Button variant="contained" color="primary" sx={{ marginRight: '20px' }}>
-                        Sign In
-                    </Button>
+                    <Button color="inherit" onClick={signInButton}>{buttonText}</Button>
                 </Toolbar>
             </AppBar>
             <Drawer
-                sx={navStyles.drawer}
+                sx={{
+                    width: drawerWidth,
+                    flexShrink: 0,
+                    '& .MuiDrawer-paper': {
+                        width: drawerWidth,
+                        boxSizing: 'border-box',
+                    },
+                }}
                 variant="persistent"
                 anchor="left"
                 open={open}
             >
-                <Box sx={navStyles.drawerHeader}>
+                <Box sx={{ justifyContent: 'flex-end' }}>
                     <IconButton onClick={handleDrawerClose}>
-                        <ShoppingBasketIcon style={{ color: 'black' }} />
+                        <MenuIcon />
                     </IconButton>
                 </Box>
                 <Divider />
                 <List>
-                    {navLinks.map((item) => (
-                        <ListItemButton key={item.text} onClick={item.onClick}>
-                            {item.icon}
-                            <ListItemText primary={item.text} />
+                    {navLinks.map(({ text, icon, onClick }) => (
+                        <ListItemButton key={text} onClick={onClick}>
+                            {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                            <ListItemText primary={text} />
                         </ListItemButton>
                     ))}
                 </List>
             </Drawer>
         </Box>
     );
-}
+};
